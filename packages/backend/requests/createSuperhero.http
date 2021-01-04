@@ -1,0 +1,9 @@
+POST http://localhost:5000/api/superheroes
+Content-Type: application/json
+
+{
+    "nickName": "Groot",
+    "realName": "Groot",
+    "catchPhrase": "I am groot",
+    "originDescription": "We are Groot"
+}
