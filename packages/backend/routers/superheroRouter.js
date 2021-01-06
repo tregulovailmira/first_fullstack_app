@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { superheroController } = require('../controllers');
-
+const { upload } = require('../middleware');
 
 const superheroRouter = Router();
 
@@ -12,9 +12,11 @@ superheroRouter
 superheroRouter
   .route('/:superheroId')
   .get(superheroController.getById)
-  .put(superheroController.updateById)
+  .put(superheroController.updateById, superheroController.create)
   .delete(superheroController.deleteById);
 
-superheroRouter.post('/:superheroId/images');
+superheroRouter
+  .route('/:superheroId/images')
+  .patch(upload.single('superhero_image'), superheroController.addImage);
 
 module.exports = superheroRouter;

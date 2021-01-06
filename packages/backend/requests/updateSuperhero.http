@@ -1,8 +1,8 @@
-POST http://localhost:5000/api/superheroes
+PUT http://localhost:5000/api/superheroes/22
 Content-Type: application/json
 
 {
-    "nickName": "Black Widow6",
+    "nickName": "Black Widow22",
     "realName": "Natasha Romanova",
     "superPowers": ["woman", "black"],
     "catchPhrase": "I am Natasha",
