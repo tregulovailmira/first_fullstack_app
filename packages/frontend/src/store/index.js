@@ -1,16 +1,16 @@
-// import { createStore } from 'redux';
+import { createStore } from 'redux';
 
-// const initialStore = {};
+const initialStore = {};
 
-// // action - object of js, that has type: action={type: 'typeOfAction'}
-// const reduser = (store = initialStore, action) => {
-//   const { type } = action;
-//   switch (type) {
-//     default:
-//       return store;
-//   }
-// };
+// action - object of js, that has type: action={type: 'typeOfAction', ...}
+const reduser = (state = initialStore, action) => {
+  const { type } = action;
+  switch (type) {
+    default:
+      return state;
+  }
+};
 
-// const store = createStore();
+const store = createStore(reduser);
 
-// export default store;
+export default store;

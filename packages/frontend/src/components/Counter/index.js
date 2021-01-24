@@ -1,4 +1,5 @@
-import React, { useState, useReducer } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 const initialValues = { value: 0, step: 1 };
 
@@ -14,7 +15,7 @@ const reduser = (state, action) => {
     case 'INCREMENT': {
       return { ...state, value: value + step };
     }
-    case 'CHANGE_STEP': {
+    case 'SET_STEP': {
       return { ...state, step: action.value };
     }
 
@@ -24,40 +25,47 @@ const reduser = (state, action) => {
   }
 };
 
-const Counter = () => {
+const Counter = (props) => {
   //   const [value, setValue] = useState(0);
   //   const [step, setStep] = useState(1);
 
-  const [{ value, step }, dispatch] = useReducer(reduser, initialValues);
+  // const [{ value, step }, dispatch] = useReducer(reduser, initialValues);
+  const { value, step, increment, decrement, setStep } = props;
 
   return (
     <div>
       <h1>{value}</h1>
       <div>
-        <button
-          onClick={() => {
-            dispatch({ type: 'INCREMENT' });
-          }}
-        >
-          +
-        </button>
-        <button
-          onClick={() => {
-            dispatch({ type: 'DECREMENT' });
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => increment}>+</button>
+        <button onClick={() => decrement}>-</button>
       </div>
       <input
         type="number"
         value={step}
-        onChange={({ target: { value } }) => {
-          dispatch({ type: 'CHANGE_STEP', value: +value });
-        }}
+        onChange={({ target: { value } }) => setStep(+value)}
       />
     </div>
   );
 };
 
-export default Counter;
+function mapStateToProps(state) {
+  return state;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    increment: () => {
+      dispatch({ type: 'INCREMENT' });
+    },
+    decrement: () => {
+      dispatch({ type: 'DECREMENT' });
+    },
+    setStep: (value) => {
+      dispatch({ type: 'SET_STEP', value });
+    },
+  };
+}
+
+connect(mapStateToProps, mapDispatchToProps)();
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
